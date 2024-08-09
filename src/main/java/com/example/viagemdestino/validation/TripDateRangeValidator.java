@@ -18,6 +18,10 @@ public class TripDateRangeValidator implements ConstraintValidator<TripDateRange
             return false;
         }
 
+        if (tripModel.getStartDate().equals(tripModel.getEndDate())) {
+            return true;
+        }
+
         return tripModel.getEndDate().isAfter(tripModel.getStartDate());
     }
 }
