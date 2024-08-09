@@ -73,7 +73,12 @@ public class TripController {
 
         if (tripO.isPresent()) {
             var tripModel = tripO.get();
+
+            DestinationModel destination = destinationRepository.findById(tripDTO.destinationId())
+                    .orElseThrow(() -> new RuntimeException("Destination not found."));
+
             BeanUtils.copyProperties(tripDTO, tripModel);
+            tripModel.setDestination(destination);
 
             return ResponseEntity.status(HttpStatus.OK).body(tripRepository.save(tripModel));
         }
